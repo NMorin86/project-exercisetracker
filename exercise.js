@@ -4,7 +4,8 @@ const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   log: [{ desc: String,
           duration: Number,
-          date: Date }]
+          date: Date }],
+  userID: Number
 });
 
 let User = mongoose.model("Exercise users", userSchema);
