@@ -12,15 +12,17 @@ let User = mongoose.model("Exercise users", userSchema);
 
 function postNewUser(req, res, next) {
   console.log("############\n# New User:", req.body.username);
+  
+  // If we ever allow deletion of users, this method obviously needs to change
   User.countDocuments({})
     .then(count => {
-      let ID = count.toString()
-      let newUser = new User({ name: req.body.username });
-
-    newUser.save()
+      let ID = '0'.repeat(4 - count.toString().length) + count.toString();
+      return new User({ name: req.body.username, userID: ID});
+    })
+    .then(newUser => newUser.save())
     .then(user => {
-      console.log("New user saved: ", user);
-      res.json(user);
+      console.log("New user saved: ", user.name, " ", user.userID);
+      res.json({ name:user.name, ID:user.userID });
       next();
     });
 }
@@ -30,6 +32,14 @@ function getAllUsers(err, req, res, next) {
 }
 
 function postNewExercise(err, req, res, next) {
+  console.log("###############\n# New exercise log:", req.body);
+  /*  Form elements:
+      name="userId" placeholder="userId*">
+      name="description" placeholder="description*">
+      name="duration" placeholder="duration* (mins.)">
+      name="date" placeholder="date (yyyy-mm-dd)">
+  */
+  
   
 }
 
