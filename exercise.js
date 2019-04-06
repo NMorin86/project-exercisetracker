@@ -27,23 +27,26 @@ function postNewUser(req, res, next) {
     });
 }
 
-function getAllUsers(err, req, res, next) {
+function getAllUsers(req, res, next) {
   
 }
 
-function postNewExercise(err, req, res, next) {
-  console.log("###############\n# New exercise log:", req.body);
+function postNewExercise(req, res, next) {
+  console.log("####################\n# New exercise log:", req.body);
   /*  Form elements:
       name="userId" placeholder="userId*">
       name="description" placeholder="description*">
       name="duration" placeholder="duration* (mins.)">
       name="date" placeholder="date (yyyy-mm-dd)">
   */
-  
+  // Store date as a string in the DB
+  let date = new Date(req.body.date);
+  date = (isNaN(date.getTime()) ? new Date() : date).toDateString();
+  console.log("Parsed date:", date);
   
 }
 
-function getExerciseLog(err, req, res, next) {
+function getExerciseLog(req, res, next) {
   
 }
 
