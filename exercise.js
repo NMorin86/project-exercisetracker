@@ -5,15 +5,19 @@ const userSchema = new mongoose.Schema({
   log: [{ desc: String,
           duration: Number,
           date: Date }],
-  userID: Number
+  userID: String
 });
 
 let User = mongoose.model("Exercise users", userSchema);
 
 function postNewUser(req, res, next) {
   console.log("############\n# New User:", req.body.username);
-  let newUser = new User({ name: req.body.username });
-  newUser.save()
+  User.countDocuments({})
+    .then(count => {
+      let ID = count.toString()
+      let newUser = new User({ name: req.body.username });
+
+    newUser.save()
     .then(user => {
       console.log("New user saved: ", user);
       res.json(user);
