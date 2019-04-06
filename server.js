@@ -19,15 +19,9 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html')
 });
 
-
-// Not found middleware
-app.use((req, res, next) => {
-  return next({status: 404, message: 'not found'})
-})
-
-
 // Error Handling middleware
 app.use((err, req, res, next) => {
+  console.log("In error handler:", err);
   let errCode, errMessage
 
   if (err.errors) {
@@ -43,8 +37,7 @@ app.use((err, req, res, next) => {
   }
   res.status(errCode).type('txt')
     .send(errMessage)
-})
-*/
+});
 
 //    I can create a user by posting form data username to /api/exercise/new-user 
 //    and returned will be an object with username and _id.
