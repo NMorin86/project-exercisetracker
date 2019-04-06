@@ -4,7 +4,7 @@ const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   log: [{ desc: String,
           duration: Number,
-          date: Date }],
+          date: String }],
   userID: String
 });
 
@@ -42,7 +42,12 @@ function postNewExercise(req, res, next) {
   // Store date as a string in the DB
   let date = new Date(req.body.date);
   date = (isNaN(date.getTime()) ? new Date() : date).toDateString();
-  console.log("Parsed date:", date);
+  let log = { desc: req.body.description,
+              duration: parseInt(req.body.description),
+              date: date };
+  // Should really validate before submitting form...
+  if(isNaN(log.duration)) { log.duration = 0; }
+  User.findOneAndUpdate({ userID: req.body.userID }, 
   
 }
 
