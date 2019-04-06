@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
 let User = mongoose.model("Exercise users", userSchema);
 
 function postNewUser(req, res, next) {
-  console.log("###\n# New User:", req.body.username);
+  console.log("############\n# New User:", req.body.username);
   let newUser = new User({ name: req.body.username });
   newUser.save()
     .then(user => {

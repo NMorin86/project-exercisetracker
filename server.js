@@ -25,6 +25,7 @@ app.use((req, res, next) => {
   return next({status: 404, message: 'not found'})
 })
 
+
 // Error Handling middleware
 app.use((err, req, res, next) => {
   let errCode, errMessage
@@ -43,6 +44,7 @@ app.use((err, req, res, next) => {
   res.status(errCode).type('txt')
     .send(errMessage)
 })
+*/
 
 //    I can create a user by posting form data username to /api/exercise/new-user 
 //    and returned will be an object with username and _id.
