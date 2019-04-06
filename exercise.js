@@ -1,7 +1,13 @@
 const mongoose = require('mongoose');
 
-const loggerSchema = mongoose.Schema({
-  
+const userSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  log: [{ desc: String,
+          duration: Number,
+          date: Date }]
+});
+
+let User = mongoose.model("Exercise users", userSchema);
 
 function postNewUser(err, req, res, next) {
   
