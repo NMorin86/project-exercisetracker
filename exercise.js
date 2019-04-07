@@ -24,7 +24,8 @@ function postNewUser(req, res, next) {
     
     .then(user => {
       console.log("New user saved: ", user.name, " ", user.userID);
-      res.json({ name: user.name, ID: user.userID });
+      res.send(toResults({ name: user.name, ID: user.userID }));
+    
     });
 }
 
@@ -66,6 +67,10 @@ function postNewExercise(req, res, next) {
 
 function getExerciseLog(req, res, next) {
   
+}
+
+function toResults(obj) {
+  return "<script>document.getElementById('res').value=" + JSON.stringify(obj) + ";</script>";
 }
 
 module.exports = { postNewUser: postNewUser,
