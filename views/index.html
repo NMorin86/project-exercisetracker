@@ -41,7 +41,9 @@
      
      <script>
        let source = new EventSource('../server.js');
-       
+       source.onmessage = (event) => {
+         getElementByID("res").value = event.data;
+       }
      </script>
    </body>
 
