@@ -40,10 +40,11 @@
       </div>
      
      <script>
-       let source = new EventSource('../server.js');
-       source.onmessage = (event) => {
-         getElementByID("res").value = event.data;
-       }
+       console.log("Am I running?");
+       let source = new EventSource('/');
+       source.addEventListener('message', event => {
+         document.getElementByID("res").value = event.data;
+       });
      </script>
    </body>
 

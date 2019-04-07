@@ -24,7 +24,7 @@ function postNewUser(req, res, next) {
     
     .then(user => {
       console.log("New user saved: ", user.name, " ", user.userID);
-      res.send("data: " + { name:user.name, ID:user.userID });
+      res.send(SSE(user));
       next();
     });
 }
@@ -75,6 +75,10 @@ function prepareSSE(req, res, next) {
              'Cache-Control': 'no-cache'
            });
   next();
+}
+
+function SSE(obj) {
+  return "data:" + JSON.stringify(obj) + "\n\n";
 }
 
 module.exports = { postNewUser: postNewUser,
