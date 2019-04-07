@@ -32,7 +32,7 @@
         <br>
         <form action="/api/exercise/users" method="get">
           <h3>Get all users</h3>
-          <input onclick="getUsers()" value="Go">
+          <input type="submit" value="Go">
         </form>
           <p><strong>GET users's exercise log: </strong><code>GET /api/exercise/log?{userId}[&amp;from][&amp;to][&amp;limit]</code></p>
           <p><strong>{ }</strong> = required, <strong>[ ]</strong> = optional</p>
@@ -40,7 +40,7 @@
       </div>
      
      <script>
-     function getUsers() {
+       let source = new EventSource('../server.js');
        
      </script>
    </body>
