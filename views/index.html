@@ -15,7 +15,7 @@
             <h3>Create a New User</h3>
             <p><code>POST /api/exercise/new-user</code></p>
             <input id="uname" type="text" name="username" placeholder="username">
-            <input type="submit" value="Submit">
+            <input type="submit" value="Submit" target="response">
           </form>
           <form action="/api/exercise/add" method="post">
             <h3>Add exercises</h3>
@@ -26,9 +26,7 @@
             <input id="dat" type="text" name="date" placeholder="date (yyyy-mm-dd)">
             <input type="submit" value="Submit">
           </form>
-          <form id="response">
-            <textarea id="res" name="res" rows="20" cols="60" readonly ></textarea>
-          </form>
+          <iframe id="response" name="response" height="500" width="400" src="blank" />
         <br>
         <form action="/api/exercise/users" method="get">
           <h3>Get all users</h3>

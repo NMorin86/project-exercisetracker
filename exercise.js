@@ -12,7 +12,6 @@ let User = mongoose.model("Exercise users", userSchema);
 
 function postNewUser(req, res, next) {
   console.log("############\n# New User:", req.body.username);
-  
   // If we ever allow deletion of users, this ID needs to change
   User.countDocuments({})
     .then(count => {
@@ -24,7 +23,7 @@ function postNewUser(req, res, next) {
     
     .then(user => {
       console.log("New user saved: ", user.name, " ", user.userID);
-      res.send(toResults({ name: user.name, ID: user.userID }));
+      res.json({ name: user.name, ID: user.userID });
     
     });
 }
