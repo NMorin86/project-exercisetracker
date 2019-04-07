@@ -74,6 +74,9 @@ function postNewExercise(req, res, next) {
 
 function getExerciseLog(req, res, next) {
   console.log("In getExerciseLog:", req.query);
+  
+  // ...Because dates are stored in [day of the week], [month] dd yyyy format...
+  // 
 }
 
 function quickFormat(obj) {
