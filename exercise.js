@@ -43,18 +43,19 @@ function postNewExercise(req, res, next) {
   let date = new Date(req.body.date);
   date = (isNaN(date.getTime()) ? new Date() : date).toDateString();
   let log = { desc: req.body.description,
-              duration: parseInt(req.body.description),
+              duration: parseInt(req.body.duration),
               date: date };
   // Should really validate before submitting form...
   if(isNaN(log.duration)) { log.duration = 0; }
-  User.findOneAndUpdate({ userID: req.body.userID }, { log: log }, { new: true })
+  console.log("Executing search:", req.body.userId, log);
+  User.findOneAndUpdate({ userID: req.body.userId }, { $push: { log: log }}, { new: true }).exec()
     .then(user => {
-      console.log("Log element pushed:", user.log);
+      console.log("Log element pushed:", user.log.map((val) => val.date));
       res.json(user);
     })
     .catch(err => {
       console.log(err);
-      res.json(err)
+      res.send(err)
     });
 }
 
