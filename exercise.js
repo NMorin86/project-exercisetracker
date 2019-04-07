@@ -78,15 +78,19 @@ function getExerciseLog(req, res, next) {
   User.findOne({ userID: req.query.userID }).exec()
     
   .then(user => {
+    
+    console.log(user.log, user.log.length);
+    if(user.log.length === 0) {
+      //res.send(, user.userID);
+      return Promise.reject("No log entries found for user:");
+    }
+    
     // De-mongoosify the log array
     let log = [];
     user.log.forEach(v => log.push({ desc: v.desc, duration: v.duration, date: v.date }));
-    console.log("Found user:", user.userID);
+    console.log("Prepping logs for user:", user.userID);
 
-    if(log === undefined) {
-      res.send("userID not found");
-      return;
-    }
+
     
     // Reject results before 'from' date
     if(req.query.from !== '') {
@@ -114,15 +118,19 @@ function getExerciseLog(req, res, next) {
     
     let total = log.reduce((t, v) =>  t + v.duration, 0);
     
-    let output = { userID: user.userID, total: total, logs: log.map(v => {return { desc: v.desc, duration: v.duration, date: v.date }}) };
+    let output = { userID: user.userID, total: total, logs: log };
     console.log("Preparing output log:", output);
     res.send(quickFormat(output));
+  })
+  .catch(err => {
+    console.log(err);
+    res.send
   });
 }
     
 
 function quickFormat(obj) {
-  return obj.toString().split(',').join('<br>');
+  return JSON.stringify(obj).split(',').join('<br>');
 }
                                        
 
