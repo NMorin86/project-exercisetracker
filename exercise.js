@@ -47,8 +47,15 @@ function postNewExercise(req, res, next) {
               date: date };
   // Should really validate before submitting form...
   if(isNaN(log.duration)) { log.duration = 0; }
-  User.findOneAndUpdate({ userID: req.body.userID }, 
-  
+  User.findOneAndUpdate({ userID: req.body.userID }, { log: log }, { new: true })
+    .then(user => {
+      console.log("Log element pushed:", user.log);
+      res.json(user);
+    })
+    .catch(err => {
+      console.log(err);
+      res.json(err)
+    });
 }
 
 function getExerciseLog(req, res, next) {
