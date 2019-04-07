@@ -78,41 +78,39 @@ function getExerciseLog(req, res, next) {
   User.findOne({ userID: req.query.userID }).exec()
     
   .then(user => {
-    
-    console.log(user.log, user.log.length);
     if(user.log.length === 0) {
-      //res.send(, user.userID);
-      return Promise.reject("No log entries found for user:");
+      return Promise.reject("No log entries found for user: " + user.userID);
     }
     
-    // De-mongoosify the log array
+    // De-mongoosify and sort the log array
     let log = [];
     user.log.forEach(v => log.push({ desc: v.desc, duration: v.duration, date: v.date }));
+    log = log.sort((a,b) => a.date.getTime() - b.date.getTime()
     console.log("Prepping logs for user:", user.userID);
-
-
-    
+   
     // Reject results before 'from' date
     if(req.query.from !== '') {
       let from = new Date(req.query.from);
+      console.log("Culling dates before ", from);
       if(!isNaN(from.getTime())) {
          // 'from' date is valid
-         log.filter(val => Date.parse(val.date) >= from.getTime());
+         log = log.filter(val => Date.parse(val.date) >= from.getTime());
       }
     }
    
     // Reject results after 'to' date    
-    if(req.query.from !== '') {
+    if(req.query.to !== '') {
       let to = new Date(req.query.to);
+      console.log("Culling dates after ", to);
       if(!isNaN(to.getTime())) {
-         // 'from' date is valid
-         log.filter(val => Date.parse(val.date) <= to.getTime());
+         // 'to' date is valid
+         log = log.filter(val => Date.parse(val.date) <= to.getTime());
       }
     }
 
     // Truncate log
     let limit = parseInt(req.query.limit);
-    if(limit !== '' && !isNaN(limit) && limit > log.length) {
+    if(limit !== '' && !isNaN(limit) && limit < log.length) {
       log = log.slice(0, limit);
     }
     
@@ -124,7 +122,7 @@ function getExerciseLog(req, res, next) {
   })
   .catch(err => {
     console.log(err);
-    res.send
+    res.send(err);
   });
 }
     
