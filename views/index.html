@@ -32,6 +32,14 @@
           <h3>Get all users</h3>
           <input type="submit" value="Go">
         </form>
+        <form action="/api/exercise/log" method="get" target="response">
+          <h3>Get exercise logs</h3>
+          <input type="text" name="userID" placeholder="userID*">
+          <input type="text" name="from" placeholder="From (date)">
+          <input type="text" name="to" placeholder="To (date)">
+          <input type="text" name="limit" placeholder="Limit">
+          <input type="submit" value="Submit">
+        </form>
           <p><strong>GET users's exercise log: </strong><code>GET /api/exercise/log?{userId}[&amp;from][&amp;to][&amp;limit]</code></p>
           <p><strong>{ }</strong> = required, <strong>[ ]</strong> = optional</p>
           <p><strong>from, to</strong> = dates (yyyy-mm-dd); <strong>limit</strong> = number</p>

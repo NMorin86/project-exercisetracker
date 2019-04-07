@@ -68,12 +68,12 @@ function postNewExercise(req, res, next) {
     
     .catch(err => {
       console.log(err);
-      res.send(err)
+      res.send(err.toString())
     });
 }
 
 function getExerciseLog(req, res, next) {
-  
+  console.log("In getExerciseLog:", req.query);
 }
 
 function quickFormat(obj) {
