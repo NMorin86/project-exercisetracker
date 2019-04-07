@@ -41,7 +41,10 @@
      
      <script>
        console.log("Am I running?");
-       
+       XMLHttpRequest.prototype.onload = function() {
+         console.log("In overloaded onload");
+         document.getElementById('res').value = this.responseText;
+       }
      </script>
    </body>
 
