@@ -30,6 +30,13 @@ function postNewUser(req, res, next) {
 
 function getAllUsers(req, res, next) {
   console.log("In getAllUsers");
+  
+  User.find({}, 'name userID').exec()
+    
+    .then(data => {
+      console.log("Return data:" + data.length + " records");
+      res.send(data.forEach((d) => d.name + " " + d.userID + "\n"));
+    })
 }
 
 function postNewExercise(req, res, next) {

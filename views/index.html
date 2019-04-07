@@ -11,13 +11,13 @@
    <body>
       <div class="container">
          <h1>Exercise tracker</h1>
-          <form action="/api/exercise/new-user" method="post">
+          <form action="/api/exercise/new-user" method="post" target="response">
             <h3>Create a New User</h3>
             <p><code>POST /api/exercise/new-user</code></p>
             <input id="uname" type="text" name="username" placeholder="username">
-            <input type="submit" value="Submit" target="response">
+            <input type="submit" value="Submit">
           </form>
-          <form action="/api/exercise/add" method="post">
+          <form action="/api/exercise/add" method="post" target="response">
             <h3>Add exercises</h3>
             <p><code>POST /api/exercise/add</code></p>
             <input id="uid" type="text" name="userId" placeholder="userId*">
@@ -26,9 +26,9 @@
             <input id="dat" type="text" name="date" placeholder="date (yyyy-mm-dd)">
             <input type="submit" value="Submit">
           </form>
-          <iframe id="response" name="response" height="500" width="400" src="blank" />
+        <iframe id="response" name="response" height="200" width="500"></iframe>
         <br>
-        <form action="/api/exercise/users" method="get">
+        <form action="/api/exercise/users" method="get" target="response">
           <h3>Get all users</h3>
           <input type="submit" value="Go">
         </form>
@@ -36,11 +36,6 @@
           <p><strong>{ }</strong> = required, <strong>[ ]</strong> = optional</p>
           <p><strong>from, to</strong> = dates (yyyy-mm-dd); <strong>limit</strong> = number</p>
       </div>
-     
-     <script>
-       console.log("Am I running?");
-       
-     </script>
    </body>
 
 </html>
