@@ -35,7 +35,7 @@ function getAllUsers(req, res, next) {
     
     .then(data => {
       console.log("Return data:" + data.length + " records");
-      res.send(data.forEach((d) => d.name + " " + d.userID + "\n"));
+      res.send(data.map((d) => d.name + " " + d.userID).join('<br>'));
     })
 }
 
@@ -62,7 +62,8 @@ function postNewExercise(req, res, next) {
   
     .then(user => {
       console.log("Log element pushed:", user.log.map((val) => val.date));
-      res.json(user);
+      //res.json(user);
+      res.send(quickFormat(user));
     })
     
     .catch(err => {
@@ -75,9 +76,10 @@ function getExerciseLog(req, res, next) {
   
 }
 
-function toResults(obj) {
-  return "<script>document.getElementById('res').value=" + JSON.stringify(obj) + ";</script>";
+function quickFormat(obj) {
+  return obj.toString().split(',').join('<br>');
 }
+                                       
 
 module.exports = { postNewUser: postNewUser,
                    getAllUsers: getAllUsers,
