@@ -83,14 +83,36 @@ function getExerciseLog(req, res, next) {
       res.send("userID not found");
     }
     
+    // Reject results before 'from' date
     if(req.query.from !== '') {
-      // Reject results before 'from' date
       let from = new Date(req.query.from);
-      if(!isNaN(from.getTime()) {
+      if(!isNaN(from.getTime())) {
          // 'from' date is valid
-         
-    
+         log.filter(val => Date.parse(val.date) >= from.getTime());
+      }
     }
+   
+    // Reject results after 'to' date    
+    if(req.query.from !== '') {
+      let to = new Date(req.query.to);
+      if(!isNaN(to.getTime())) {
+         // 'from' date is valid
+         log.filter(val => Date.parse(val.date) <= to.getTime());
+      }
+    }
+
+    // Truncate log
+    let limit = parseInt(req.query.limit);
+    if(limit !== '' && !isNaN(limit) && limit > log.length) {
+      log = log.slice(0, limit);
+    }
+    
+    let total = log.reduce((t, v) => t + v.duration);
+    
+    
+  });
+}
+    
 
 function quickFormat(obj) {
   return obj.toString().split(',').join('<br>');
