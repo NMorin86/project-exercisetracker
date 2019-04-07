@@ -30,7 +30,7 @@ function postNewUser(req, res, next) {
 }
 
 function getAllUsers(req, res, next) {
-  
+  console.log("In getAllUsers");
 }
 
 function postNewExercise(req, res, next) {

@@ -32,12 +32,17 @@
         <br>
         <form action="/api/exercise/users" method="get">
           <h3>Get all users</h3>
-          <input type="submit" value="Go">
+          <input onclick="getUsers()" value="Go">
         </form>
           <p><strong>GET users's exercise log: </strong><code>GET /api/exercise/log?{userId}[&amp;from][&amp;to][&amp;limit]</code></p>
           <p><strong>{ }</strong> = required, <strong>[ ]</strong> = optional</p>
           <p><strong>from, to</strong> = dates (yyyy-mm-dd); <strong>limit</strong> = number</p>
       </div>
+     
+     <script>
+     function getUsers() {
+       
+     </script>
    </body>
 
 </html>
