@@ -78,9 +78,11 @@ function getExerciseLog(req, res, next) {
   User.findOne({ userID: req.query.userID }).exec()
     
   .then(user => {
+    console.log("Found user log:", user.log);
     let log = user.log;
     if(log === undefined) {
       res.send("userID not found");
+      return;
     }
     
     // Reject results before 'from' date
@@ -109,7 +111,9 @@ function getExerciseLog(req, res, next) {
     
     let total = log.reduce((t, v) => t + v.duration);
     
-    
+    let output = { userID: user.userID, total: total, logs: log };
+    console.log("Preparing output log:", output);
+    res.send(quickFormat(output));
   });
 }
     
