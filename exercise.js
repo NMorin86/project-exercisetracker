@@ -72,8 +72,10 @@ function getExerciseLog(req, res, next) {
 function prepareSSE(req, res, next) {
   console.log("In prepareSSE"); 
   res.set({ 'Content-Type': 'text/event-stream',
-             'Cache-Control': 'no-cache'
+            'Cache-Control': 'no-cache',
+            'Connection': 'keep-alive'
            });
+  res.redirect(__dirname + '/stream');
   next();
 }
 
