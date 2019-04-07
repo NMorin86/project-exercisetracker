@@ -13,13 +13,15 @@ let User = mongoose.model("Exercise users", userSchema);
 function postNewUser(req, res, next) {
   console.log("############\n# New User:", req.body.username);
   
-  // If we ever allow deletion of users, this method obviously needs to change
+  // If we ever allow deletion of users, this ID needs to change
   User.countDocuments({})
     .then(count => {
       let ID = '0'.repeat(4 - count.toString().length) + count.toString();
       return new User({ name: req.body.username, userID: ID});
     })
+    
     .then(newUser => newUser.save())
+    
     .then(user => {
       console.log("New user saved: ", user.name, " ", user.userID);
       res.json({ name:user.name, ID:user.userID });
@@ -41,18 +43,22 @@ function postNewExercise(req, res, next) {
   */
   // Store date as a string in the DB
   let date = new Date(req.body.date);
+  // If date is not valid then use today
   date = (isNaN(date.getTime()) ? new Date() : date).toDateString();
   let log = { desc: req.body.description,
               duration: parseInt(req.body.duration),
               date: date };
-  // Should really validate before submitting form...
+  // Should really validate this BEFORE allowing form submission
   if(isNaN(log.duration)) { log.duration = 0; }
+  
   console.log("Executing search:", req.body.userId, log);
   User.findOneAndUpdate({ userID: req.body.userId }, { $push: { log: log }}, { new: true }).exec()
+  
     .then(user => {
       console.log("Log element pushed:", user.log.map((val) => val.date));
       res.json(user);
     })
+    
     .catch(err => {
       console.log(err);
       res.send(err)
