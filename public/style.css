@@ -28,9 +28,11 @@ form {
   padding: 15px;
   background-color: #87D37C;
   display: inline-block;
-  //width: 100%;
-  //max-width: 340px;
   border-radius: 5px;
+}
+
+iframe {
+  float: right;
 }
 
 input {

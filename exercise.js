@@ -85,7 +85,7 @@ function getExerciseLog(req, res, next) {
     // De-mongoosify and sort the log array
     let log = [];
     user.log.forEach(v => log.push({ desc: v.desc, duration: v.duration, date: v.date }));
-    log = log.sort((a,b) => a.date.getTime() - b.date.getTime()
+    log.sort((a,b) => Date.parse(a.date) - Date.parse(b.date));
     console.log("Prepping logs for user:", user.userID);
    
     // Reject results before 'from' date
