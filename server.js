@@ -39,9 +39,6 @@ app.use((err, req, res, next) => {
     .send(errMessage)
 });
 
-// Configure res to send a server-side-event
-app.use('/api/exercise/*', ex.prepareSSE);
-app.get('/stream', 
 
 //    I can create a user by posting form data username to /api/exercise/new-user 
 //    and returned will be an object with username and _id.

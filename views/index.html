@@ -41,10 +41,7 @@
      
      <script>
        console.log("Am I running?");
-       let source = new EventSource('../stream');
-       source.addEventListener('message', event => {
-         document.getElementByID("res").value = event.data;
-       });
+       
      </script>
    </body>
 

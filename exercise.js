@@ -24,8 +24,7 @@ function postNewUser(req, res, next) {
     
     .then(user => {
       console.log("New user saved: ", user.name, " ", user.userID);
-      res.send(SSE(user));
-      next();
+      res.json({ name: user.name, ID: user.userID });
     });
 }
 
@@ -69,23 +68,8 @@ function getExerciseLog(req, res, next) {
   
 }
 
-function prepareSSE(req, res, next) {
-  console.log("In prepareSSE"); 
-  res.set({ 'Content-Type': 'text/event-stream',
-            'Cache-Control': 'no-cache',
-            'Connection': 'keep-alive'
-           });
-  res.redirect(__dirname + '/stream');
-  next();
-}
-
-function SSE(obj) {
-  return "data:" + JSON.stringify(obj) + "\n\n";
-}
-
 module.exports = { postNewUser: postNewUser,
                    getAllUsers: getAllUsers,
                    postNewExercise: postNewExercise,
                    getExerciseLog: getExerciseLog,
-                   prepareSSE: prepareSSE
                  };
