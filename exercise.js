@@ -50,7 +50,7 @@ function postNewExercise(req, res, next) {
   // Store date as a string in the DB
   let date = new Date(req.body.date);
   // If date is not valid then use today
-  date = (isNaN(date.getTime()) ? new Date() : date).toDateString();
+  date = (isNaN(date.getTime()) ? new Date() : date).toISOString();
   let log = { desc: req.body.description,
               duration: parseInt(req.body.duration),
               date: date };
@@ -75,9 +75,22 @@ function postNewExercise(req, res, next) {
 function getExerciseLog(req, res, next) {
   console.log("In getExerciseLog:", req.query);
   
-  // ...Because dates are stored in [day of the week], [month] dd yyyy format...
-  // 
-}
+  User.findOne({ userID: req.query.userID }).exec()
+    
+  .then(user => {
+    let log = user.log;
+    if(log === undefined) {
+      res.send("userID not found");
+    }
+    
+    if(req.query.from !== '') {
+      // Reject results before 'from' date
+      let from = new Date(req.query.from);
+      if(!isNaN(from.getTime()) {
+         // 'from' date is valid
+         
+    
+    }
 
 function quickFormat(obj) {
   return obj.toString().split(',').join('<br>');
