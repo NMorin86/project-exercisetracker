@@ -78,8 +78,11 @@ function getExerciseLog(req, res, next) {
   User.findOne({ userID: req.query.userID }).exec()
     
   .then(user => {
-    console.log("Found user log:", user.log);
-    let log = user.log;
+    // De-mongoosify the log array
+    let log = [];
+    user.log.forEach(v => log.push({ desc: v.desc, duration: v.duration, date: v.date }));
+    console.log("Found user:", user.userID);
+
     if(log === undefined) {
       res.send("userID not found");
       return;
@@ -109,9 +112,9 @@ function getExerciseLog(req, res, next) {
       log = log.slice(0, limit);
     }
     
-    let total = log.reduce((t, v) => t + v.duration);
+    let total = log.reduce((t, v) =>  t + v.duration, 0);
     
-    let output = { userID: user.userID, total: total, logs: log };
+    let output = { userID: user.userID, total: total, logs: log.map(v => {return { desc: v.desc, duration: v.duration, date: v.date }}) };
     console.log("Preparing output log:", output);
     res.send(quickFormat(output));
   });
